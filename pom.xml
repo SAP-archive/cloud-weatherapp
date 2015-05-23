@@ -9,7 +9,9 @@
 		<java-version>1.7</java-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<org.slf4j-version>1.7.2</org.slf4j-version>
-		<com.sap.cloud.neo.api-version>1.76.13</com.sap.cloud.neo.api-version>		
+		<com.sap.cloud.neo.api-version>1.76.13</com.sap.cloud.neo.api-version>	
+		
+		<org.apache.cxf-version>3.0.0</org.apache.cxf-version>
 	</properties>
 
 	<repositories>
@@ -39,6 +41,24 @@
 		  	<artifactId>servlet-api</artifactId>
 		  	<version>2.5</version>
 		  	<scope>provided</scope>
+		</dependency>
+		
+		<!-- Apache CXF -->
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxws</artifactId>
+			<version>${org.apache.cxf-version}</version>
+		</dependency>
+		<dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+            <version>${org.apache.cxf-version}</version>
+        </dependency>
+		
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+		    <artifactId>javax.ws.rs-api</artifactId>
+		    <version>2.0</version>
 		</dependency>
 	</dependencies>
 
