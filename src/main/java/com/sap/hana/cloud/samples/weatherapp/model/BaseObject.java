@@ -11,10 +11,15 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.eclipse.persistence.annotations.Multitenant;
+import org.eclipse.persistence.annotations.TenantDiscriminatorColumn;
+
 /**
  * Base class for all domain model objects.
  */
 @MappedSuperclass
+@Multitenant
+@TenantDiscriminatorColumn(name = "TENANT_ID", contextProperty="tenant.id")
 public abstract class BaseObject 
 {
 	/**
