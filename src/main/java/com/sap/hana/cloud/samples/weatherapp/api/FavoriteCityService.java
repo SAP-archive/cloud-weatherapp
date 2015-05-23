@@ -38,16 +38,11 @@ public class FavoriteCityService
 	@SuppressWarnings("unchecked")
 	@GET
 	@Path("/")
-	public List<FavoriteCity> getFavoriteCities(@Context SecurityContext ctx)
+	public List<FavoriteCity> getFavoriteCities()
 	{
 		List<FavoriteCity> retVal = null;
 		
-		String userName = (ctx.getUserPrincipal() != null) ? ctx.getUserPrincipal().getName() : "anonymous";
-		
-		Map<String,String> props = new HashMap<String,String>();
-		props.put("tenant.id", userName);
-		
-		EntityManager em = this.getEntityManagerFactory().createEntityManager(props);
+		EntityManager em = this.getEntityManagerFactory().createEntityManager();
 
 		retVal = em.createNamedQuery("FavoriteCities").getResultList();
 		
@@ -56,16 +51,11 @@ public class FavoriteCityService
 	
 	@GET
 	@Path("/{id}")
-	public FavoriteCity getFavoriteCity(@PathParam(value = "id") String id, @Context SecurityContext ctx)
+	public FavoriteCity getFavoriteCity(@PathParam(value = "id") String id)
 	{
 		FavoriteCity retVal = null;
-		
-		String userName = (ctx.getUserPrincipal() != null) ? ctx.getUserPrincipal().getName() : "anonymous";
-		
-		Map<String,String> props = new HashMap<String,String>();
-		props.put("tenant.id", userName);
-		
-		EntityManager em = this.getEntityManagerFactory().createEntityManager(props);
+				
+		EntityManager em = this.getEntityManagerFactory().createEntityManager();
 		
 		try
 		{
@@ -88,16 +78,11 @@ public class FavoriteCityService
 	@SuppressWarnings("unchecked")
 	@POST
 	@Path("/")
-	public List<FavoriteCity> addFavoriteCity(FavoriteCity city, @Context SecurityContext ctx)
+	public List<FavoriteCity> addFavoriteCity(FavoriteCity city)
 	{
 		List<FavoriteCity> retVal = null;
-		
-		String userName = (ctx.getUserPrincipal() != null) ? ctx.getUserPrincipal().getName() : "anonymous";
-		
-		Map<String,String> props = new HashMap<String,String>();
-		props.put("tenant.id", userName);
-		
-		EntityManager em = this.getEntityManagerFactory().createEntityManager(props);
+				
+		EntityManager em = this.getEntityManagerFactory().createEntityManager();
 		
 		try
 		{
@@ -122,16 +107,11 @@ public class FavoriteCityService
 	@SuppressWarnings("unchecked")
 	@DELETE
 	@Path("/{id}")
-	public List<FavoriteCity> removeFavoriteCity(@PathParam(value = "id") String id, @Context SecurityContext ctx)
+	public List<FavoriteCity> removeFavoriteCity(@PathParam(value = "id") String id)
 	{
 		List<FavoriteCity> retVal = null;
 		
-		String userName = (ctx.getUserPrincipal() != null) ? ctx.getUserPrincipal().getName() : "anonymous";
-		
-		Map<String,String> props = new HashMap<String,String>();
-		props.put("tenant.id", userName);
-		
-		EntityManager em = this.getEntityManagerFactory().createEntityManager(props);
+		EntityManager em = this.getEntityManagerFactory().createEntityManager();
 		
 		try
 		{
