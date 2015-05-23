@@ -1,10 +1,31 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML> 
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-<p>Hello World!</p>
-</body>
+
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Weather</title>
+
+        <script src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m"
+                data-sap-ui-resourceroots='{"sap.hana.cloud.samples": "./"}'
+                data-sap-ui-theme="sap_bluecrystal"
+                data-sap-ui-xx-bindingSyntax="complex">
+        </script>
+
+        <script>
+            sap.ui.getCore().attachInit(function() {
+                new sap.m.Shell({
+                    app: new sap.ui.core.ComponentContainer({
+                        name: "sap.hana.cloud.samples.weather_app"
+                    })
+                }).placeAt("content");
+            });
+        </script>
+    </head>
+
+    <body class="sapUiBody" role="application">
+        <div id="content"></div>
+    </body>
+
 </html>

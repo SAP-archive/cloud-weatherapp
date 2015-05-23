@@ -1,0 +1,37 @@
+<core:View xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m" controllerName="sap.hana.cloud.samples.weather_app.view.List"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	displayBlock="true">
+	<Page>
+        <customHeader>
+            <Toolbar>
+                <!-- Button placed on the left -->
+                <Button icon="sap-icon://home" press=".handleHomeButtonPress" />
+                <ToolbarSpacer />
+                <!-- Text placed in the center and bound to the resource model -->
+                <Text text="Favorites" />
+                <ToolbarSpacer />
+            </Toolbar>
+        </customHeader>
+        <subHeader>
+            <Toolbar>
+                <SearchField search=".handleSearch"></SearchField>
+            </Toolbar>
+        </subHeader>
+		<content>
+		    <List id="List"
+		        items="{path: '/', sorter: [{path: 'name'}]}"
+		        itemPress=".handleListItemPress">
+                <ObjectListItem
+                    title="{name}"
+                    type="Active">
+                </ObjectListItem>
+		    </List>
+		</content>
+		<footer>
+		    <Toolbar>
+		    </Toolbar>
+		</footer>
+	</Page>
+</core:View>

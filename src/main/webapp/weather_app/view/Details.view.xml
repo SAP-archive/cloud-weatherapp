@@ -1,0 +1,43 @@
+<core:View xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:form="sap.ui.layout.form"
+	xmlns="sap.m" controllerName="sap.hana.cloud.samples.weather_app.view.Details" 
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="Weather">
+		<content>
+		    <ObjectHeader
+		        title="{details>/name}"
+		        number="{details>/main/temp}"
+		        numberUnit="°C" >
+		        <attributes>
+		          <ObjectAttribute title="Country" text="{details>/sys/country}" />
+		          <ObjectAttribute title="Base" text="{details>/base}" />
+		          <ObjectAttribute title="Main" text="{details>/weather/0/main}" />
+		          <ObjectAttribute title="Description" text="{details>/weather/0/description}" />
+		          <ObjectAttribute title="Wind Speed" text="{details>/wind/speed}" />
+		          <ObjectAttribute title="Wind Direction" text="{details>/wind/deg}" />
+		        </attributes>
+		        <!-- 
+		        <statuses>
+		          <ObjectStatus title="Status" text="In Stock" state="Success" />
+		        </statuses>
+		         -->
+        	</ObjectHeader>
+        </content>
+       	<footer>
+		    <Toolbar>
+		    	<ToolbarSpacer/>
+		    	<Button icon="sap-icon://add-favorite" 
+		    			press=".handleAddToFavorite" 
+		    			visible="{
+		    				path: 'guid',
+		    				formatter: '.formatAddToFavVisible' }"></Button>
+		    	<Button icon="sap-icon://unfavorite" 
+		    			press=".handleRemoveFromFavorite"
+		    			visible="{
+		    				path: 'guid',
+		    				formatter: '.formatRemoveFromFavVisible' }"></Button>
+		    </Toolbar>
+		</footer>
+	</Page>
+</core:View>

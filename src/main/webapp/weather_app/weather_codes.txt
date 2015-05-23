@@ -1,0 +1,13 @@
+{
+	[
+		01d  	01n  	clear sky           wi-day-sunny          wi-night-clear
+		02d  	02n  	few clouds          wi-day-sunny-overcast wi-night-partly-cloudy  
+		03d  	03n  	scattered clouds    wi-day-cloudy         wi-night-cloudy
+		04d  	04n  	broken clouds       wi-day-cloudy         wi-night-cloudy                
+		09d  	09n  	shower rain         wi-day-rain-mix       wi-night-alt-showers
+		10d  	10n  	rain                wi-day-rain           wi-night-alt-rain
+		11d  	11n  	thunderstorm        wi-day-thunderstorm   wi-night-thunderstorm
+		13d  	13n  	snow                wi-day-snow           wi-night-snow
+		50d  	50n  	mist                wi-day-fog            wi-night-fog
+	]
+}
