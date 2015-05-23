@@ -12,6 +12,7 @@
 		<com.sap.cloud.neo.api-version>1.76.13</com.sap.cloud.neo.api-version>	
 		
 		<org.apache.cxf-version>3.0.0</org.apache.cxf-version>
+		<org.codehaus.jackson-version>1.9.9</org.codehaus.jackson-version>
 	</properties>
 
 	<repositories>
@@ -59,6 +60,41 @@
 			<groupId>javax.ws.rs</groupId>
 		    <artifactId>javax.ws.rs-api</artifactId>
 		    <version>2.0</version>
+		</dependency>
+		
+			<!-- EclipseLink (and JPA) --> 
+		<dependency>
+		    <groupId>org.eclipse.persistence</groupId>
+		    <artifactId>eclipselink</artifactId>
+		    <version>2.5.0</version>
+	      </dependency>
+		 <dependency>
+		     <groupId>org.eclipse.persistence</groupId>
+		     <artifactId>javax.persistence</artifactId>
+		     <version>2.1.0</version>
+		</dependency>
+		<!-- Derby -->
+		<dependency>
+			<groupId>org.apache.derby</groupId>
+			<artifactId>derbyclient</artifactId>
+			<version>10.9.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.derby</groupId>
+			<artifactId>derby</artifactId>
+			<version>10.9.1.0</version>
+		</dependency>
+			
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<version>2.0</version>
+		</dependency>
+		  	
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-jaxrs</artifactId>
+			<version>${org.codehaus.jackson-version}</version>
 		</dependency>
 	</dependencies>
 

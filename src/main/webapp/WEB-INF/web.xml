@@ -7,6 +7,13 @@
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
+	
+	<resource-ref>
+	    <res-ref-name>jdbc/DefaultDB</res-ref-name>
+	    <res-type>javax.sql.DataSource</res-type>
+	</resource-ref>
+	
+	
 	<servlet>
 		<description></description>
 		<display-name>HelloWorldServlet</display-name>
@@ -24,8 +31,13 @@
 		<init-param>
 			<param-name>jaxrs.serviceClasses</param-name>
 			<param-value>
-				com.sap.hana.cloud.samples.weatherapp.api.AuthenticationService
+				com.sap.hana.cloud.samples.weatherapp.api.AuthenticationService,
+				com.sap.hana.cloud.samples.weatherapp.api.FavoriteCityService
 			</param-value>
+		</init-param>
+		<init-param>
+	  		<param-name>jaxrs.providers</param-name>
+	  		<param-value>org.codehaus.jackson.jaxrs.JacksonJsonProvider</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
