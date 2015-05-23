@@ -12,7 +12,10 @@
 	    <res-ref-name>jdbc/DefaultDB</res-ref-name>
 	    <res-type>javax.sql.DataSource</res-type>
 	</resource-ref>
-	
+	<resource-ref>
+      	<res-ref-name>openweathermap-destination</res-ref-name>
+      	<res-type>com.sap.core.connectivity.api.http.HttpDestination</res-type>
+	</resource-ref>
 	
 	<servlet>
 		<description></description>
@@ -32,7 +35,8 @@
 			<param-name>jaxrs.serviceClasses</param-name>
 			<param-value>
 				com.sap.hana.cloud.samples.weatherapp.api.AuthenticationService,
-				com.sap.hana.cloud.samples.weatherapp.api.FavoriteCityService
+				com.sap.hana.cloud.samples.weatherapp.api.FavoriteCityService,
+				com.sap.hana.cloud.samples.weatherapp.api.WeatherService
 			</param-value>
 		</init-param>
 		<init-param>

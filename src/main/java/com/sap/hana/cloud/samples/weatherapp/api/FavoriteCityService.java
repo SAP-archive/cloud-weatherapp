@@ -211,4 +211,14 @@ public class FavoriteCityService
 		return retVal;
 	}
 	
+	@GET
+	@Path("/{id}/weather")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public String getWeatherInformation(@PathParam(value = "id") String id, @Context SecurityContext ctx)
+	{
+		WeatherService weatherService = new WeatherService();
+		return weatherService.getWeatherInformation(id, null);
+	}
+
+	
 }
