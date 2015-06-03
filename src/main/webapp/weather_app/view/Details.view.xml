@@ -2,27 +2,36 @@
 	xmlns:mvc="sap.ui.core.mvc" 
 	xmlns:form="sap.ui.layout.form"
 	xmlns="sap.m" controllerName="sap.hana.cloud.samples.weather_app.view.Details" 
-	xmlns:html="http://www.w3.org/1999/xhtml">
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:tmpl="sap.ui.core.tmpl">
 	<Page title="Weather">
 		<content>
 		    <ObjectHeader
 		        title="{details>/name}"
-		        number="{details>/main/temp}"
-		        numberUnit="°C" >
+		        number="{
+					path : 'details>/main/temp',
+					formatter : 'sap.hana.cloud.samples.weather_app.util.formatter.temperature'
+				}">
 		        <attributes>
 		          <ObjectAttribute title="Country" text="{details>/sys/country}" />
 		          <ObjectAttribute title="Base" text="{details>/base}" />
 		          <ObjectAttribute title="Main" text="{details>/weather/0/main}" />
 		          <ObjectAttribute title="Description" text="{details>/weather/0/description}" />
 		          <ObjectAttribute title="Wind Speed" text="{details>/wind/speed}" />
-		          <ObjectAttribute title="Wind Direction" text="{details>/wind/deg}" />
+		          <ObjectAttribute title="Wind Direction" text="{
+		          path : 'details>/wind/deg',
+		          formatter : 'sap.hana.cloud.samples.weather_app.util.formatter.direction'
+		          }"/>
 		        </attributes>
-		        <!-- 
-		        <statuses>
-		          <ObjectStatus title="Status" text="In Stock" state="Success" />
-		        </statuses>
-		         -->
         	</ObjectHeader>
+			<tmpl:DOMElement tag="i" text="">
+                <tmpl:attributes>
+                    <tmpl:DOMAttribute name="class" value="{
+			          path : 'details>/wind/deg',
+			          formatter : 'sap.hana.cloud.samples.weather_app.util.formatter.direction_icon'
+			          }"/>
+                </tmpl:attributes>
+           	</tmpl:DOMElement>
         </content>
        	<footer>
 		    <Toolbar>

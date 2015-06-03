@@ -10,8 +10,11 @@
                 data-sap-ui-libs="sap.m"
                 data-sap-ui-resourceroots='{"sap.hana.cloud.samples": "./"}'
                 data-sap-ui-theme="sap_bluecrystal"
-                data-sap-ui-xx-bindingSyntax="complex">
+                data-sap-ui-bindingSyntax="complex"
+                data-sap-ui-preload="async">
         </script>
+        
+        <link rel="stylesheet" type="text/css" href="css/weather-icons.min.css">
 
         <script>
             sap.ui.getCore().attachInit(function() {

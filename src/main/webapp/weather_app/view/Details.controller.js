@@ -1,7 +1,8 @@
 /* eslint-disable max-params */
 sap.ui.define([
 	// Include the dependencies by their namespace
-	"sap/ui/core/mvc/Controller"
+	"sap/ui/core/mvc/Controller",
+	"sap/hana/cloud/samples/weather_app/util/formatter"
 ],
 // the dependencies are passed to this function in the same order
 function(Controller) {
