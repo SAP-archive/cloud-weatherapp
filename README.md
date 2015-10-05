@@ -30,7 +30,7 @@ As promised by the title we'll start completely from scratch and then build out 
 6.  Next, we show you how-to use the connectivity service to consume an external service (in our case one that provides weather information)
 7.  Last, we'll develop a mobile UI using a master-detail template based on [OpenUI5](http://openui5.org/getstarted.html)
 
-Curious? Hopefully so - get your hands dirty following the [tutorial](https://github.com/SAP/cloud-weatherapp/raw/master/Mastering_SAP_Tech_AU_2015_Matthias_Steiner_WS_Excercise.pdf).
+Curious? Hopefully so - get your hands dirty following the [tutorial](https://github.com/SAP/cloud-weatherapp/raw/master/cloud-weatherapp-script.pdf).
 
 Have fun coding!
 
