@@ -19,6 +19,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
 import org.eclipse.persistence.config.PersistenceUnitProperties;
@@ -214,7 +215,7 @@ public class FavoriteCityService
 	@GET
 	@Path("/{id}/weather")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public String getWeatherInformation(@PathParam(value = "id") String id, @Context SecurityContext ctx)
+	public Response getWeatherInformation(@PathParam(value = "id") String id, @Context SecurityContext ctx)
 	{
 		WeatherService weatherService = new WeatherService();
 		return weatherService.getWeatherInformation(id, null);

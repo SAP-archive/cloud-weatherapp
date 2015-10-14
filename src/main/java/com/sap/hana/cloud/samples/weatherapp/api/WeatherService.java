@@ -8,13 +8,13 @@ import java.text.MessageFormat;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -33,11 +33,12 @@ public class WeatherService
 	@GET
 	@Path("/")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public String getWeatherInformation(@QueryParam(value = "id") String id, @QueryParam(value = "q") String q)
+	public Response getWeatherInformation(@QueryParam(value = "id") String id, @QueryParam(value = "q") String q)
 	{
 	    HttpClient httpClient = null;
-        
-	    String retVal = null;
+	    HttpGet httpGet = null;
+	    
+	    String msgBody = null;
 	    
         try 
         {
@@ -55,73 +56,56 @@ public class WeatherService
             
             if (id != null && id.trim().length() > 0) // id takes precedence
             {
-            	destinationURL = MessageFormat.format("{0}?id={1}&units=metric", baseURL, id);
+            	destinationURL = MessageFormat.format("{0}&id={1}&units=metric", baseURL, id);
             }
             else
             {
-            	destinationURL = MessageFormat.format("{0}?q={1}&units=metric", baseURL, q);
+            	destinationURL = MessageFormat.format("{0}&q={1}&units=metric", baseURL, q);
             }
             
             // Execute HTTP request
-            HttpGet httpGet = new HttpGet(destinationURL);
+            httpGet = new HttpGet(destinationURL);
             
             HttpResponse httpResponse = httpClient.execute(httpGet);
 
             // Check response status code
             int statusCode = httpResponse.getStatusLine().getStatusCode();
             
-            if (statusCode != HttpServletResponse.SC_OK) 
+            // copy content from the incoming response to the outgoing response
+            HttpEntity entity = null;
+            
+            if (httpResponse != null)
             {
-                throw new ServletException("Expected response status code is 200 but it is " + statusCode + " .");
+            	entity = httpResponse.getEntity();
             }
             
-            // Copy content from the incoming response to the outgoing response
-            HttpEntity entity = httpResponse.getEntity();
+            msgBody = getResponseBodyasString(entity);
             
-            if (entity != null) 
+            if (statusCode == HttpServletResponse.SC_OK) 
             {
-                InputStream instream = entity.getContent();
-                ByteArrayOutputStream outstream = new ByteArrayOutputStream();
-                
-                try 
-                {
-                    byte[] buffer = new byte[COPY_CONTENT_BUFFER_SIZE];
-                    int len;
-                    while ((len = instream.read(buffer)) != -1) 
-                    {
-                    	outstream.write(buffer, 0, len);
-                    }
-                } 
-                catch (IOException e) 
-                {
-                    // In case of an IOException the connection will be released
-                    // back to the connection manager automatically
-                    throw e;
-                } 
-                catch (RuntimeException e) 
-                {
-                    // In case of an unexpected exception you may want to abort
-                    // the HTTP request in order to shut down the underlying
-                    // connection immediately.
-                    httpGet.abort();
-                    throw e;
-                } 
-                finally 
-                {
-                    // Closing the input stream will trigger connection release
-                    try 
-                    {
-                        instream.close();
-                    } 
-                    catch (Exception e) 
-                    {
-                    // Ignore
-                    }
-                }
-                
-                retVal = outstream.toString("UTF-8");
-                
+                return Response.ok(msgBody).build();
             }
+            else
+            {
+            	return Response.status(statusCode).entity(msgBody).build();
+            }
+
+        } 
+        catch (RuntimeException e) 
+        {
+            // In case of an unexpected exception we abort the HTTP request 
+        	// in order to shut down the underlying connection immediately.
+            if (httpGet != null)
+            {
+            	httpGet.abort();
+            }
+        	
+            // unexpected runtime error
+            String errorMessage = "'Houston, we have a problem!' : "
+                    + e.getMessage()
+                    + ". See logs for details.";
+            
+            msgBody = errorMessage;
         } 
         catch (NamingException e) 
         {
@@ -132,7 +116,7 @@ public class WeatherService
                     + "logs for details. Hint: Make sure to have the destination "
                     + "[openweathermap-destination]" + " configured.";
             
-            retVal = errorMessage;
+            msgBody = errorMessage;
         } 
         catch (Exception e) 
         {
@@ -145,7 +129,7 @@ public class WeatherService
                     + "an HTTP proxy for the outbound Internet "
                     + "communication.";
             
-            retVal = errorMessage;
+            msgBody = errorMessage;
         } 
         finally 
         {
@@ -157,8 +141,59 @@ public class WeatherService
             }
         }
         
-        return retVal;
+        // if we end up here something went really bad
+        return Response.serverError().build();
     }
+	
+	/**
+	 * Extracts the response body from the specified {@link HttpEntity} and returns it as a UTF-8 encoded String.
+	 * 
+	 * @param entity The {@link HttpEntity} to extract the message body from
+	 * @return The UTF-8 encoded String representation of the message body 
+	 * @throws 
+	 */
+	static String getResponseBodyasString(HttpEntity entity) throws Exception
+	{
+		String retVal = null;
+		
+		if (entity != null) 
+        {
+            InputStream instream = entity.getContent();
+            ByteArrayOutputStream outstream = new ByteArrayOutputStream();
+            
+            try 
+            {
+                byte[] buffer = new byte[COPY_CONTENT_BUFFER_SIZE];
+                int len;
+                while ((len = instream.read(buffer)) != -1) 
+                {
+                	outstream.write(buffer, 0, len);
+                }
+            } 
+            catch (IOException e) 
+            {
+                // In case of an IOException the connection will be released
+                // back to the connection manager automatically
+                throw e;
+            } 
+            finally 
+            {
+                // Closing the input stream will trigger connection release
+                try 
+                {
+                    instream.close();
+                } 
+                catch (Exception e) 
+                {
+                // Ignore
+                }
+            }
+            
+            retVal = outstream.toString("UTF-8");
+        }
+		
+		return retVal;
+	}
 }
 	
 
