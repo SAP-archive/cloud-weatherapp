@@ -9,6 +9,7 @@
 		<java-version>1.7</java-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<org.slf4j-version>1.7.2</org.slf4j-version>
+		
 		<com.sap.cloud.neo.api-version>1.76.13</com.sap.cloud.neo.api-version>	
 		
 		<org.apache.cxf-version>3.0.0</org.apache.cxf-version>
@@ -34,26 +35,49 @@
 	      	<artifactId>neo-java-web-api</artifactId>
 	      	<version>${com.sap.cloud.neo.api-version}</version>
 	      	<scope>provided</scope>
-	  	</dependency>
+	      	<exclusions>
+	      		<exclusion>
+	      			<artifactId>persistence-api</artifactId>
+	      			<groupId>javax.persistence</groupId>
+	      		</exclusion>
+	      	</exclusions>
+		</dependency>
 	  	
 	  	<!-- Servlet -->
 		<dependency>
-		  	<groupId>javax.servlet</groupId>
-		  	<artifactId>servlet-api</artifactId>
-		  	<version>2.5</version>
+		  	<groupId>org.glassfish</groupId>
+		  	<artifactId>javax.servlet</artifactId>
+		  	<version>3.1-b33</version>
 		  	<scope>provided</scope>
 		</dependency>
+		
+		<!-- Apache http client -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.1.3</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.1.4</version>
+			<scope>provided</scope>
+		</dependency>
+		
 		
 		<!-- Apache CXF -->
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-frontend-jaxws</artifactId>
 			<version>${org.apache.cxf-version}</version>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-frontend-jaxrs</artifactId>
             <version>${org.apache.cxf-version}</version>
+            <scope>runtime</scope>
         </dependency>
 		
 		<dependency>
@@ -62,7 +86,7 @@
 		    <version>2.0</version>
 		</dependency>
 		
-			<!-- EclipseLink (and JPA) --> 
+		<!-- EclipseLink (and JPA) --> 
 		<dependency>
 		    <groupId>org.eclipse.persistence</groupId>
 		    <artifactId>eclipselink</artifactId>
@@ -73,29 +97,29 @@
 		     <artifactId>javax.persistence</artifactId>
 		     <version>2.1.0</version>
 		</dependency>
+		
 		<!-- Derby -->
 		<dependency>
 			<groupId>org.apache.derby</groupId>
 			<artifactId>derbyclient</artifactId>
 			<version>10.9.1.0</version>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.derby</groupId>
 			<artifactId>derby</artifactId>
 			<version>10.9.1.0</version>
+			<scope>runtime</scope>
 		</dependency>
-			
-		<dependency>
-			<groupId>javax.ws.rs</groupId>
-			<artifactId>javax.ws.rs-api</artifactId>
-			<version>2.0</version>
-		</dependency>
-		  	
+		
+		<!-- Jackson -->
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-jaxrs</artifactId>
 			<version>${org.codehaus.jackson-version}</version>
+			<scope>runtime</scope>
 		</dependency>
+	
 	</dependencies>
 
 	<build>
@@ -188,7 +212,30 @@
 						</lifecycleMappingMetadata>
 					</configuration>
 				</plugin>
-			</plugins>
+				
+				<!-- leading by example -->
+				<plugin>
+			        <groupId>org.apache.maven.plugins</groupId>
+			        <artifactId>maven-dependency-plugin</artifactId>
+			        <version>2.10</version>
+			        <executions>
+			          <execution>
+			            <id>analyze</id>
+			            <goals>
+			              <goal>analyze</goal>
+			            </goals>
+			          </execution>
+			        </executions>
+			        <configuration>
+			          <failOnWarning>false</failOnWarning>
+			          <ignoredDependencies>
+			            <ignoredDependency>org.apache.derby:*</ignoredDependency>
+			            <ignoredDependency>org.apache.cxf:*</ignoredDependency>
+			            <ignoredDependency>org.codehaus.jackson:*</ignoredDependency>
+			          </ignoredDependencies>
+			        </configuration>
+			      </plugin>
+		    </plugins>
 		</pluginManagement>
 	</build>
 	
