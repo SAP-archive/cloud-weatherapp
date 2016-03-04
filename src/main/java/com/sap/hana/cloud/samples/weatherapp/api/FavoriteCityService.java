@@ -128,7 +128,6 @@ public class FavoriteCityService
 		List<FavoriteCity> retVal = null;
 		
 		String userName = (ctx.getUserPrincipal() != null) ? ctx.getUserPrincipal().getName() : "anonymous";
-		
 		Map<String,String> props = new HashMap<String,String>();
 		props.put("tenant.id", userName);
 		
@@ -138,13 +137,20 @@ public class FavoriteCityService
 		{
 			Query query = em.createNamedQuery("FavoriteCityById");
 			query.setParameter("id", id);
-			FavoriteCity city = (FavoriteCity) query.getSingleResult();
+			//FavoriteCity city = (FavoriteCity) query.getSingleResult();
 			
-			if (city != null)
+			List<FavoriteCity> cities = query.getResultList();
+			if (cities != null)
 			{
-				em.getTransaction().begin();
-				em.remove(city);
-				em.getTransaction().commit();
+				if(cities.size() > 0)
+				{
+					for(FavoriteCity city: cities)
+					{
+						em.getTransaction().begin();
+						em.remove(city);
+						em.getTransaction().commit();
+					}
+				}
 			}
 			
 			retVal = em.createNamedQuery("FavoriteCities").getResultList();
@@ -160,6 +166,7 @@ public class FavoriteCityService
 		
 		return retVal;
 	}
+	
 	
 	
 	/**
