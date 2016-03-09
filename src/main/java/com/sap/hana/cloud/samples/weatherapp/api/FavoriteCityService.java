@@ -92,19 +92,34 @@ public class FavoriteCityService
 	public List<FavoriteCity> addFavoriteCity(FavoriteCity city, @Context SecurityContext ctx)
 	{
 		List<FavoriteCity> retVal = null;
-		
+		boolean duplicate = false;
+				
 		String userName = (ctx.getUserPrincipal() != null) ? ctx.getUserPrincipal().getName() : "anonymous";
-		
 		Map<String,String> props = new HashMap<String,String>();
 		props.put("tenant.id", userName);
 		
 		EntityManager em = this.getEntityManagerFactory().createEntityManager(props);
 		
+		retVal = em.createNamedQuery("FavoriteCities").getResultList();
+		if(retVal!= null && retVal.size()>0)
+		{
+			for(FavoriteCity city1: retVal)
+			{
+				if(city1.getName().equals(city.getName()))
+				{
+					duplicate = true;
+					break;
+				}
+			}
+		}
 		try
 		{
-			em.getTransaction().begin();
-			em.persist(city);
-			em.getTransaction().commit();
+			if(duplicate == false)
+			{
+				em.getTransaction().begin();
+				em.persist(city);
+				em.getTransaction().commit();
+			}
 			
 			retVal = em.createNamedQuery("FavoriteCities").getResultList();
 		}
@@ -137,21 +152,11 @@ public class FavoriteCityService
 		{
 			Query query = em.createNamedQuery("FavoriteCityById");
 			query.setParameter("id", id);
-			//FavoriteCity city = (FavoriteCity) query.getSingleResult();
+			FavoriteCity city = (FavoriteCity) query.getSingleResult();
 			
-			List<FavoriteCity> cities = query.getResultList();
-			if (cities != null)
-			{
-				if(cities.size() > 0)
-				{
-					for(FavoriteCity city: cities)
-					{
-						em.getTransaction().begin();
-						em.remove(city);
-						em.getTransaction().commit();
-					}
-				}
-			}
+			em.getTransaction().begin();
+			em.remove(city);
+			em.getTransaction().commit();
 			
 			retVal = em.createNamedQuery("FavoriteCities").getResultList();
 		}
