@@ -8,6 +8,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.sql.DataSource;
@@ -101,15 +102,30 @@ public class FavoriteCityService
 		EntityManager em = this.getEntityManagerFactory().createEntityManager(props);
 		
 		try
-		{
+		{	
 			em.getTransaction().begin();
-			em.persist(city);
-			em.getTransaction().commit();
+			
+			// make sure that we have a unique semantical key 
+			Query query = em.createNamedQuery("FavoriteCityById");
+			query.setParameter("id", city.getId());
+			
+			try
+			{
+				@SuppressWarnings("unused")
+                FavoriteCity duplicate = (FavoriteCity) query.getSingleResult();
+			}
+			catch (NoResultException ex)
+			{
+				// all good 
+				em.persist(city);
+				em.getTransaction().commit();
+			}
 			
 			retVal = em.createNamedQuery("FavoriteCities").getResultList();
 		}
 		catch(Exception ex)
 		{
+			
 			ex.printStackTrace();
 		}
 		finally
