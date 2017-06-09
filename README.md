@@ -7,7 +7,7 @@ When asked about the benefits of cloud computing one common argument is usually 
 
 Same rationale is true when it comes to upskilling - the speed of innovation and technology is constantly accelerating and it's more important than ever to hone your skills to stay up to date (or should we even say _to stay relevant_?) Given the usual time constraints developers face to learn about new technologies the only viable way is to make it as simple as possible/convenient to do so.
 
-For us at the SAP HANA Cloud Platform team this mindset has became sort of a mantra and it has been the guiding principles for all that we do in regards to developer outreach. Just take the [openSAP courses](https://open.sap.com/courses) organized by [Rui Nogueira](http://scn.sap.com/people/rui.nogueira) , the end-to-end scenarios brought to you by [Jens Glander](http://scn.sap.com/people/jens.glander), [Bertram Ganz](http://scn.sap.com/people/bertram.ganz) and [Thomas Bieser](http://scn.sap.com/people/thomas.bieser) or all the sample code hosted right here at [github.com](https://github.com/SAP) as prominent examples.
+For us at the SAP Cloud Platform team this mindset has became sort of a mantra and it has been the guiding principles for all that we do in regards to developer outreach. Just take the [openSAP courses](https://open.sap.com/courses) organized by [Rui Nogueira](http://scn.sap.com/people/rui.nogueira) , the end-to-end scenarios brought to you by [Jens Glander](http://scn.sap.com/people/jens.glander), [Bertram Ganz](http://scn.sap.com/people/bertram.ganz) and [Thomas Bieser](http://scn.sap.com/people/thomas.bieser) or all the sample code hosted right here at [github.com](https://github.com/SAP) as prominent examples.
 
 In that tradition, we're happy to present you a new end-to-end hands-on tutorial that will take you **from zero to hero in roughly four hours** teaching you how-to combine the most-commonly used platform services to build a full-fledged mobile weather app.
 
@@ -39,7 +39,7 @@ PS: If you should get lost along the way... don't worry! We have created check-p
 Versioning
 ----------
 
-For transparency and insight into our release cycle, and for striving to maintain backward compatibility, the SAP HANA Cloud Platform - Samples project will be maintained under the Semantic Versioning guidelines as much as possible.
+For transparency and insight into our release cycle, and for striving to maintain backward compatibility, the SAP Cloud Platform - Samples project will be maintained under the Semantic Versioning guidelines as much as possible.
 
 Releases will be numbered with the following format:
 
@@ -66,7 +66,7 @@ Authors
 Copyright and license
 ---------------------
 
-Copyright (c) 2015 SAP SE
+Copyright (c) 2015-2017 SAP SE
 
 Except as provided below, this software is licensed under the Apache License, Version 2.0 (the "License"); you may not use this software except in compliance with the License.You may obtain a copy of the License at:
 

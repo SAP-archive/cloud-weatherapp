@@ -246,8 +246,8 @@
     
     <developers>
         <developer>
-            <name>SAP HANA Cloud Platform</name>
-            <url>http://hcp.sap.com</url>
+            <name>SAP Cloud Platform</name>
+            <url>http://cloudplatform.sap.com</url>
             <organization>SAP SE</organization>
             <organizationUrl>http://www.sap.com/</organizationUrl>
         </developer>
