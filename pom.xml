@@ -10,7 +10,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<org.slf4j-version>1.7.2</org.slf4j-version>
 		
-		<com.sap.cloud.neo.api-version>1.76.13</com.sap.cloud.neo.api-version>	
+		<com.sap.cloud.neo.api-version>1.128.17.3</com.sap.cloud.neo.api-version>	
 		
 		<org.apache.cxf-version>3.0.0</org.apache.cxf-version>
 		<org.codehaus.jackson-version>1.9.9</org.codehaus.jackson-version>
